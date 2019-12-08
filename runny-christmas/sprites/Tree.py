@@ -15,8 +15,12 @@ class Tree(Sprite):
     def update(self, multiplier = 1):
         self.xProgress -= (config['PX_STEP'] * multiplier)
         self._positionate()
+
+    def isOffscreen(self):
         if self.rect.bottomright[0] < 0:
             self.kill()
+            return True
+        return False
 
     def _positionate(self):
         self.rect.bottomright = (self.xProgress, config['GROUND_POSITION'])

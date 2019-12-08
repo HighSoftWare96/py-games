@@ -4,7 +4,7 @@ from helpers.config import config
 from helpers.game_state import GameState
 from helpers.loaders import load_image, load_sound
 from helpers.colors import RED, BLACK, WHITE
-from sprites.Tree import Tree
+from managers.TreeManager import TreeManager
 from sprites.Terrain import Terrain 
 from sprites.Background import Background
 
@@ -14,16 +14,16 @@ pygame.display.set_caption(config['SCREEN_TITLE'])
 
 
 background = Background()
-tree = Tree()
+treeManager = TreeManager()
 terrain = Terrain()
 
-allsprites = pygame.sprite.RenderPlain((tree))
 clock = pygame.time.Clock()
 
 while(True):
-    clock.tick(60)
-    tree.update()
+    pygame.event.get()
+    treeManager.update()
     screen.blit(background.getSurf(), background.getCoords())
     screen.blit(terrain.getSurf(), terrain.getCoords())
-    allsprites.draw(screen)
+    treeManager.draw(screen)
     pygame.display.flip()
+    clock.tick(config['FPS'])

@@ -1,21 +1,36 @@
-import os, pygame
+import os
+import pygame
 from pygame.locals import *
 from pygame.transform import scale
 from definitions import ROOT_DIR
 
 assets_dir = 'assets'
+imageCache = {}
 
 
-def load_image(name, size):
+def load_image(name, size, opacity=1):
     print(os.path.join(ROOT_DIR, assets_dir, name))
     fullname = os.path.join(ROOT_DIR, assets_dir, name)
+    uniqueKey = fullname + '#' + str(size) + '#' + str(opacity)
+
+    # cerco se sono cachati da qualche parte
+    if uniqueKey in imageCache:
+        print('Cached')
+        cachedImage = imageCache[uniqueKey].copy()
+        return cachedImage, cachedImage.get_rect()
+
+    # caricamento dell'immagine
     try:
         image = pygame.image.load(fullname)
     except pygame.error as message:
         print('Cannot load image:', name)
         raise SystemExit(message)
+
     image = image.convert_alpha()
     image = scale(image, size)
+
+    # salvo nella cache
+    imageCache[uniqueKey] = image.copy()
     return image, image.get_rect()
 
 
