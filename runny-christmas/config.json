@@ -1,5 +1,15 @@
 {
     "SCREEN_SIZE": [900, 380],
     "SCREEN_TITLE": "Runny Christmas",
-    "GROUND_POSITION": 320
+    "FPS": 60,
+    "PX_STEP": 5,
+    "GROUND_POSITION": 280,
+    "TERRAIN": {
+        "SIZE": [70, 70]
+    },
+    "SPRITES": {
+        "TREE": {
+            "SIZE": [60,80]
+        }
+    }
 }

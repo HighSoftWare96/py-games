@@ -1,11 +1,12 @@
 import os, pygame
 from pygame.locals import *
+from pygame.transform import scale
 from definitions import ROOT_DIR
 
 assets_dir = 'assets'
 
 
-def load_image(name):
+def load_image(name, size):
     print(os.path.join(ROOT_DIR, assets_dir, name))
     fullname = os.path.join(ROOT_DIR, assets_dir, name)
     try:
@@ -14,6 +15,7 @@ def load_image(name):
         print('Cannot load image:', name)
         raise SystemExit(message)
     image = image.convert_alpha()
+    image = scale(image, size)
     return image, image.get_rect()
 
 

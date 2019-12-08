@@ -2,17 +2,21 @@ from pygame.sprite import Sprite
 from helpers.loaders import load_image
 from helpers.config import config
 
+SPRITE_CONFIG = config['SPRITES']['TREE']
+
 
 class Tree(Sprite):
     def __init__(self):
         Sprite.__init__(self)
-        self.image, self.rect = load_image('tree.png')
+        self.image, self.rect = load_image('tree.png', SPRITE_CONFIG['SIZE'])
         self.xProgress = config['SCREEN_SIZE'][0] + 300
         self._positionate()
 
     def update(self, multiplier = 1):
-        self.xProgress -= (5 * multiplier)
+        self.xProgress -= (config['PX_STEP'] * multiplier)
         self._positionate()
+        if self.rect.bottomright[0] < 0:
+            self.kill()
 
     def _positionate(self):
         self.rect.bottomright = (self.xProgress, config['GROUND_POSITION'])
