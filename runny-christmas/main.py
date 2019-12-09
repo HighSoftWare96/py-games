@@ -8,7 +8,7 @@ from managers.TreeManager import TreeManager
 from sprites.Terrain import Terrain 
 from sprites.Background import Background
 
-pygame.init()
+pygame.init()   
 screen = pygame.display.set_mode(config['SCREEN_SIZE'])
 pygame.display.set_caption(config['SCREEN_TITLE'])
 
