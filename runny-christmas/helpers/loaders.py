@@ -1,7 +1,7 @@
 import os
 import pygame
 from pygame.locals import *
-from pygame.transform import scale
+from pygame.transform import smoothscale
 from definitions import ROOT_DIR
 
 assets_dir = 'assets'
@@ -27,7 +27,7 @@ def load_image(name, size, opacity=1):
         raise SystemExit(message)
 
     image = image.convert_alpha()
-    image = scale(image, size)
+    image = smoothscale(image, size)
 
     # salvo nella cache
     imageCache[uniqueKey] = image.copy()
