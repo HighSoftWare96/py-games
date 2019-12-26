@@ -8,7 +8,7 @@
             "name": "Python: File corrente",
             "type": "python",
             "request": "launch",
-            "program": "/Users/giovannibertoncelli/Library/Group Containers/G69SCX94XU.duck/Library/Application Support/duck/Volumes/OneDrive/Coding/Python/py-games/runny-christmas/main.py",
+            "program": "/Users/giovannibertoncelli/workspace/py-games/runny-christmas/main.py",
             "console": "integratedTerminal"
         }
     ]

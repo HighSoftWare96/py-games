@@ -10,6 +10,7 @@ SCREEN_SIZE = config['SCREEN_SIZE']
 
 class Background():
     def __init__(self):
+        self.stopped = False
         self.layer0, self.layer0_rect = load_image('background0.png', SCREEN_SIZE)
 
         self.layer1, self.layer1_rect = load_image('background1.png', SCREEN_SIZE, 0.8)
@@ -40,19 +41,23 @@ class Background():
     def getCoords(self):
         return (0,0)
 
+    def stop(self):
+        self.stopped = True
+
     def randomizeSnow(self):
         self.snowStep = randrange(3, 6)
         print(self.snowStep)
 
     def _updateImages(self):
         self.background.blit(self.layer0, (0,0))
-        self.background.blit(self.layer1, (0 - self.layer1Offset,135))
-        self.background.blit(self.layer1, (SCREEN_SIZE[0] - self.layer1Offset,135))
-        self.layer1Offset = (self.layer1Offset + self.layer1Step) % SCREEN_SIZE[0]
-        self.background.blit(self.layer2, (0 - self.layer2Offset,135))
-        self.background.blit(self.layer2, (SCREEN_SIZE[0] - self.layer2Offset,135))
-        self.layer2Offset = (self.layer2Offset + self.layer2Step) % SCREEN_SIZE[0]
-        self.background.blit(self.snow, (0, self.snowOffset))
+        self.background.blit(self.snow, (0, self.snowOffset))        
         self.background.blit(self.snow, (0,  self.snowOffset - self.snowSize[1]))
         self.snowOffset = (self.snowOffset + self.snowStep) % self.snowSize[1]
+        self.background.blit(self.layer1, (0 - self.layer1Offset,135))
+        self.background.blit(self.layer1, (SCREEN_SIZE[0] - self.layer1Offset,135))
+        self.background.blit(self.layer2, (0 - self.layer2Offset,135))
+        self.background.blit(self.layer2, (SCREEN_SIZE[0] - self.layer2Offset,135))
+        if not self.stopped:
+            self.layer1Offset = (self.layer1Offset + self.layer1Step) % SCREEN_SIZE[0]
+            self.layer2Offset = (self.layer2Offset + self.layer2Step) % SCREEN_SIZE[0] 
 

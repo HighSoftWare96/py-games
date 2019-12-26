@@ -9,6 +9,7 @@ TERRAIN_SIZE = TERRAIN_CONFIG['SIZE']
 
 class Terrain():
     def __init__(self):
+        self.stopped = False
         self.surface = Surface((config['SCREEN_SIZE'][0], config['SCREEN_SIZE'][1] 
         - config['GROUND_POSITION']))
         self.surface = self.surface.convert()
@@ -19,6 +20,9 @@ class Terrain():
         self._fillWithTextures()
         return self.surface
 
+    def stop(self):
+        self.stopped = True
+
     def getCoords(self):
         return (0,config['GROUND_POSITION'])
 
@@ -28,6 +32,8 @@ class Terrain():
 
 
     def _fillWithTextures(self):
+        if self.stopped:
+            return
         totalXSpace = config['SCREEN_SIZE'][0] + (2 * TERRAIN_SIZE[0])
         for y in range(0, config['SCREEN_SIZE'][1], TERRAIN_SIZE[1]):
             for x in range(-TERRAIN_SIZE[0], totalXSpace, TERRAIN_SIZE[0]):

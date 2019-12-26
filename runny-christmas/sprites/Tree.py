@@ -1,4 +1,5 @@
 from pygame.sprite import Sprite
+from pygame.mask import from_surface
 from helpers.loaders import load_image
 from helpers.config import config
 
@@ -9,6 +10,7 @@ class Tree(Sprite):
     def __init__(self):
         Sprite.__init__(self)
         self.image, self.rect = load_image('tree.png', SPRITE_CONFIG['SIZE'])
+        self.mask = from_surface(self.image)
         self.xProgress = config['SCREEN_SIZE'][0] + 300
         self._positionate()
 
