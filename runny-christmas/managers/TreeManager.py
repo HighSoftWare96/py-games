@@ -8,10 +8,13 @@ class TreeManager(Group):
     def __init__(self):
         Group.__init__(self)
         createTimeout(800, 6000, self._createTree)
-        self.stopped = False
+        self.stopped = True
 
     def _generateRandomTimeOffset(self):
         return randrange(800, 6000)
+
+    def start(self):
+        self.stopped = False
 
     def stop(self):
         self.stopped = True

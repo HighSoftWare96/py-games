@@ -10,7 +10,7 @@ SCREEN_SIZE = config['SCREEN_SIZE']
 
 class Background():
     def __init__(self):
-        self.stopped = False
+        self.stopped = True
         self.layer0, self.layer0_rect = load_image('background0.png', SCREEN_SIZE)
 
         self.layer1, self.layer1_rect = load_image('background1.png', SCREEN_SIZE, 0.8)
@@ -40,6 +40,9 @@ class Background():
 
     def getCoords(self):
         return (0,0)
+
+    def start(self):
+        self.stopped = False
 
     def stop(self):
         self.stopped = True

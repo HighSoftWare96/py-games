@@ -35,6 +35,7 @@ class Santa(Sprite):
     def __init__(self):
         Sprite.__init__(self)
         loadAssets()
+        self.stopped = True
         self.animationStep = 0
         self.animationSkipper = 0
         self.jumping = False
@@ -57,11 +58,20 @@ class Santa(Sprite):
             soundManager.playHit()
             self.killed = True
 
+    def start(self):
+        self.stopped = False
+    
+    def stop(self):
+        self.stopped = True
+
     def update(self, multiplier=1):
         self._animate()
         self._positionate()
 
     def _animate(self):
+        if self.stopped:
+            self.image, self.rect = runningImages[0]
+            return
         # animazione morto
         if self.killed:
             self.image, self.rect = santaKilled[0]

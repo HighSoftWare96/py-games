@@ -10,10 +10,11 @@ from managers.TreeManager import TreeManager
 from sprites.Terrain import Terrain 
 from sprites.Background import Background
 from sprites.Santa import Santa
-from controllers.GameState import state, RUNNING_STATE
+from controllers.GameState import state, RUNNING_STATE, PAUSE_STATE
 from managers.Score import Score
 from controllers.SoundManager import soundManager
 from helpers.timers import stopAll
+from managers.SplashScreen import SplashScreen
 
 pygame.init()   
 screen = pygame.display.set_mode(config['SCREEN_SIZE'])
@@ -24,6 +25,7 @@ treeManager = TreeManager()
 santa = Santa()
 terrain = Terrain()
 score = Score()
+splash = SplashScreen()
 
 clock = pygame.time.Clock()
 
@@ -40,7 +42,24 @@ def detectCollision():
             return True
     return False
 
+def startAll():
+    background.start()
+    treeManager.start()
+    santa.start()
+    terrain.start()
+    state.start()
+
+
+def pauseAll():
+    background.stop()
+    treeManager.stop()
+    santa.stop()
+    terrain.stop()
+    state.pause()
+    splash.pause()
+
 running = True
+startAll()
 
 while(running):
 
@@ -50,6 +69,11 @@ while(running):
         if event.type == KEYDOWN:
             if event.key == K_SPACE:
                 santa.jump()
+            if event.key == K_ESCAPE:
+                if state.state == RUNNING_STATE:
+                    pauseAll()
+                elif state.state == PAUSE_STATE:
+                    startAll()
 
     if detectCollision():
         gameOver()
@@ -57,6 +81,7 @@ while(running):
     if state.getState() == RUNNING_STATE:
         state.increaseScore()
 
+    splash.update()
     score.update()
     treeManager.update()
     santa.update()
@@ -64,6 +89,7 @@ while(running):
     screen.blit(terrain.getSurf(), terrain.getCoords())
     santa.draw(screen)
     score.draw(screen)
+    splash.draw(screen)
     treeManager.draw(screen)
     pygame.display.flip()
     clock.tick(config['FPS'])

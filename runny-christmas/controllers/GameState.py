@@ -12,7 +12,15 @@ class GameState():
         self.state = LOADING_STATE
         self.score = 0
         self.scoreSkipper = 0
+
+    def start(self):
         self.state = RUNNING_STATE
+
+    def pause(self):
+        self.state = PAUSE_STATE
+
+    def stop(self):
+        self.state = None
 
     def increaseScore(self):
         if self.scoreSkipper == 0:
