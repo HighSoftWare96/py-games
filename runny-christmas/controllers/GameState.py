@@ -1,3 +1,5 @@
+from controllers.SoundManager import soundManager
+
 LOADING_STATE = -2
 MENU_STATE = -1
 PAUSE_STATE = 0
@@ -14,6 +16,8 @@ class GameState():
         self.scoreSkipper = 0
 
     def start(self):
+        self.score = 0
+        self.scoreSkipper = 0
         self.state = RUNNING_STATE
 
     def pause(self):
@@ -25,6 +29,8 @@ class GameState():
     def increaseScore(self):
         if self.scoreSkipper == 0:
             self.score += 1
+            if self.score % 100 == 0:
+                soundManager.play100()
         self.scoreSkipper = (self.scoreSkipper + 1) % SCORE_SKIP_EACH
 
     def getState(self):

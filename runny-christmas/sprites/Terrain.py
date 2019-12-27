@@ -16,8 +16,8 @@ class Terrain():
         self.surface = self.surface.convert()
         self.xOffset = 0
 
-    def getSurf(self):
-        self._fillWithTextures()
+    def getSurf(self, multiplier = 1):
+        self._fillWithTextures(multiplier)
         return self.surface
 
     def start(self):
@@ -34,12 +34,11 @@ class Terrain():
         self.foreImg, self.foreImgRect = load_image('terrain_fore.png', TERRAIN_SIZE) 
 
 
-    def _fillWithTextures(self):
-
+    def _fillWithTextures(self, multiplier = 1):
         totalXSpace = config['SCREEN_SIZE'][0] + (2 * TERRAIN_SIZE[0])
         for y in range(0, config['SCREEN_SIZE'][1], TERRAIN_SIZE[1]):
             for x in range(-TERRAIN_SIZE[0], totalXSpace, TERRAIN_SIZE[0]):
                 self.surface.blit(self.backImg, (x + self.xOffset,y))
                 self.surface.blit(self.foreImg, (x + self.xOffset, 0))
         if not self.stopped:
-            self.xOffset = (self.xOffset - config['PX_STEP']) % TERRAIN_SIZE[0]
+            self.xOffset = (self.xOffset - (config['PX_STEP'] * multiplier)) % TERRAIN_SIZE[0]

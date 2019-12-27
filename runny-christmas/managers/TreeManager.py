@@ -19,6 +19,10 @@ class TreeManager(Group):
     def stop(self):
         self.stopped = True
 
+    def reset(self):
+        for sprite in self:
+            self.remove(sprite)
+
     def update(self, multiplier = 1):
         if self.stopped:
             return

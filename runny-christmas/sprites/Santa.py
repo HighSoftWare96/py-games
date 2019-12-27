@@ -59,6 +59,12 @@ class Santa(Sprite):
             self.killed = True
 
     def start(self):
+        self.animationStep = 0
+        self.animationSkipper = 0
+        self.jumping = False
+        self.jumpingY = 0
+        self.keepOnAir = JUMP_ON_AIR_FPS
+        self.killed = False
         self.stopped = False
     
     def stop(self):

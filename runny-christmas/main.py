@@ -1,5 +1,6 @@
 #!/usr/bin/env python
 import os, pygame, sys
+from pygame.mouse import get_pos
 from pygame.locals import *
 from pygame.sprite import collide_mask
 from helpers.config import config
@@ -49,6 +50,9 @@ def startAll():
     terrain.start()
     state.start()
 
+def resetAll():
+    treeManager.reset()
+    startAll()
 
 def pauseAll():
     background.stop()
@@ -66,6 +70,8 @@ while(running):
     for event in pygame.event.get():
         if event.type == QUIT:
             running = False
+        if event.type == MOUSEBUTTONUP and splash.refreshClicked(get_pos()):
+            resetAll()
         if event.type == KEYDOWN:
             if event.key == K_SPACE:
                 santa.jump()
@@ -81,12 +87,13 @@ while(running):
     if state.getState() == RUNNING_STATE:
         state.increaseScore()
 
-    splash.update()
+    multiplier = 1 + (state.score * 0.0005)
     score.update()
-    treeManager.update()
+    treeManager.update(multiplier)
     santa.update()
     screen.blit(background.getSurf(), background.getCoords())
-    screen.blit(terrain.getSurf(), terrain.getCoords())
+    screen.blit(terrain.getSurf(multiplier), terrain.getCoords())
+    splash.update()
     santa.draw(screen)
     score.draw(screen)
     splash.draw(screen)
