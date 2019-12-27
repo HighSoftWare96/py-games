@@ -49,12 +49,14 @@ def startAll():
     santa.start()
     terrain.start()
     state.start()
+    soundManager.start()
 
 def resetAll():
     treeManager.reset()
     startAll()
 
 def pauseAll():
+    soundManager.pause()
     background.stop()
     treeManager.stop()
     santa.stop()

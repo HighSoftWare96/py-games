@@ -1,11 +1,11 @@
-from pygame.mixer import Sound, music, init
+from pygame import mixer
 from helpers.loaders import load_sound
 import os
 from definitions import ROOT_DIR
 
 class SoundManager():
     def __init__(self):
-        init()
+        mixer.init()
         self.hitSound = load_sound('sounds/hit.wav')
         self.jumpSound = load_sound('sounds/jump.wav')
         self.soundEach100 = load_sound('sounds/100.wav')
@@ -15,13 +15,19 @@ class SoundManager():
 
 
     def playHit(self):
-        Sound.play(self.hitSound)
+        mixer.Sound.play(self.hitSound)
 
     def playJump(self):
-        Sound.play(self.jumpSound)
+        mixer.Sound.play(self.jumpSound)
 
     def play100(self):
-        Sound.play(self.soundEach100)
+        mixer.Sound.play(self.soundEach100)
+
+    def pause(self):
+        mixer.pause()
+    
+    def start(self):
+        mixer.unpause()
         
 
 soundManager = SoundManager()

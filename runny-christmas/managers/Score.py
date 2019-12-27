@@ -4,7 +4,7 @@ from helpers.config import config
 import os
 from definitions import ROOT_DIR
 
-scoreColor = (0, 158, 61)
+scoreColor = (255, 255,255)
 
 
 class Score():
