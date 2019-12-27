@@ -43,17 +43,17 @@ def detectCollision():
             return True
     return False
 
-def startAll():
+def startAll(reset = False):
     background.start()
     treeManager.start()
     santa.start()
     terrain.start()
-    state.start()
+    state.start(reset)
     soundManager.start()
 
 def resetAll():
     treeManager.reset()
-    startAll()
+    startAll(True)
 
 def pauseAll():
     soundManager.pause()
@@ -81,7 +81,7 @@ while(running):
                 if state.state == RUNNING_STATE:
                     pauseAll()
                 elif state.state == PAUSE_STATE:
-                    startAll()
+                    startAll(False)
 
     if detectCollision():
         gameOver()
