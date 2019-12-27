@@ -3,13 +3,14 @@ from pygame.mask import from_surface
 from helpers.loaders import load_image
 from helpers.config import config
 from math import floor
+from controllers.SoundManager import soundManager
 
 SPRITE_CONFIG = config['SPRITES']['SANTA']
 # ogni quanti FPS muovere lo sprite
 MOVE_EACH_FPS = 2
 JUMP_STEP = 8
 # n di FPS in cui al salto Santa deve rimanere in volo
-JUMP_ON_AIR_FPS = 4
+JUMP_ON_AIR_FPS = 5
 MAX_JUMP_OFFSET = config['SPRITES']['TREE']['SIZE'][1] + 40
 
 runningImages = []
@@ -45,11 +46,16 @@ class Santa(Sprite):
 
     def jump(self):
         if not self.jumping and self.jumpingY <= 15 and not self.killed:
+            # suono del salto
+            soundManager.playJump()
             self.keepOnAir = JUMP_ON_AIR_FPS
             self.jumping = True
 
     def kill(self):
-        self.killed = True
+        if not self.killed:
+            # suono del colpo
+            soundManager.playHit()
+            self.killed = True
 
     def update(self, multiplier=1):
         self._animate()

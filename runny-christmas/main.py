@@ -1,5 +1,5 @@
 #!/usr/bin/env python
-import os, pygame
+import os, pygame, sys
 from pygame.locals import *
 from pygame.sprite import collide_mask
 from helpers.config import config
@@ -12,6 +12,8 @@ from sprites.Background import Background
 from sprites.Santa import Santa
 from controllers.GameState import state, RUNNING_STATE
 from managers.Score import Score
+from controllers.SoundManager import soundManager
+from helpers.timers import stopAll
 
 pygame.init()   
 screen = pygame.display.set_mode(config['SCREEN_SIZE'])
@@ -38,9 +40,13 @@ def detectCollision():
             return True
     return False
 
-while(True):
+running = True
+
+while(running):
 
     for event in pygame.event.get():
+        if event.type == QUIT:
+            running = False
         if event.type == KEYDOWN:
             if event.key == K_SPACE:
                 santa.jump()
@@ -61,3 +67,9 @@ while(True):
     treeManager.draw(screen)
     pygame.display.flip()
     clock.tick(config['FPS'])
+
+# out of infinite loop
+stopAll()
+pygame.display.quit()
+pygame.quit()
+sys.exit(0)

@@ -8,8 +8,16 @@ class Timeout():
         self.task = task
         self.step()
 
-
     def step(self):
         self.task()
-        Timer(randrange(self.min, self.max) / 1000, self.step).start()
+        self.timer = Timer(randrange(self.min, self.max) / 1000, self.step)
+        self.timer.start()
         
+timers = []
+
+def createTimeout(min, max, task):
+    timers.append(Timeout(min, max, task))
+
+def stopAll():
+    for t in timers:
+        t.timer.cancel()

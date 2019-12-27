@@ -4,7 +4,7 @@ from pygame import Surface
 from helpers.colors import WHITE
 from random import randrange
 from threading import Timer
-from helpers.timers import Timeout
+from helpers.timers import createTimeout
 
 SCREEN_SIZE = config['SCREEN_SIZE']
 
@@ -32,7 +32,7 @@ class Background():
         self._updateImages()
         
         # randomize snow time start
-        Timeout(800, 6000, self.randomizeSnow)
+        createTimeout(800, 6000, self.randomizeSnow)
 
     def getSurf(self):
         self._updateImages()

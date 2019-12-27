@@ -1,16 +1,19 @@
 from controllers.GameState import state
 from pygame.font import Font
 from helpers.config import config
+import os
+from definitions import ROOT_DIR
 
-red = (255, 0, 0)
+scoreColor = (0, 158, 61)
 
 
 class Score():
     def __init__(self):
-        self.font = Font('freesansbold.ttf', 32)
+        fullfontpath = os.path.join(ROOT_DIR, 'assets/fonts/coolvetica.ttf')
+        self.font = Font(fullfontpath, 32)
 
     def update(self):
-        self.text = self.font.render(str(state.score), True, red)
+        self.text = self.font.render(str(state.score), True, scoreColor)
         self.rect = self.text.get_rect()
         self.rect.bottomright = (config['SCREEN_SIZE'][0] - 30, 50)
 

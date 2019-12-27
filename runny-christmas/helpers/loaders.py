@@ -35,10 +35,10 @@ def load_image(name, size, opacity=1):
 
 
 def load_sound(name):
-    fullname = os.path.join(assets_dir, name)
+    fullname = os.path.join(ROOT_DIR, assets_dir, name)
     try:
         sound = pygame.mixer.Sound(fullname)
     except pygame.error as message:
-        print('Cannot load sound:', wav)
+        print('Cannot load sound:', message)
         raise SystemExit(message)
     return sound

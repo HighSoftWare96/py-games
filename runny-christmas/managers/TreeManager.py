@@ -1,12 +1,13 @@
 from sprites.Tree import Tree
 from random import randrange
-from threading import Timer
+from helpers.timers import createTimeout
 from pygame.sprite import Group
+
 
 class TreeManager(Group):
     def __init__(self):
         Group.__init__(self)
-        self._createTree()
+        createTimeout(800, 6000, self._createTree)
         self.stopped = False
 
     def _generateRandomTimeOffset(self):
@@ -26,4 +27,3 @@ class TreeManager(Group):
     
     def _createTree(self):
         self.add(Tree())
-        return Timer(self._generateRandomTimeOffset() / 1000, self._createTree).start()
