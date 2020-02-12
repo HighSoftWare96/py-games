@@ -1,0 +1,5 @@
+{
+    "path": "./recordings",
+    "resolution": [600, 480],
+    "framerate": 5
+}
